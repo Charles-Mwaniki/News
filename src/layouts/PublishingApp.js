@@ -1,13 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import article from '../reducers/Article';
+import falcorModel from '../FalcorModel';
+import { bindActionCreators } from 'redux';
+import articleActions from '../actions/Article';
+
 const mapStateToProps = (state) => ({ ...state });
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({ articleActions: bindActionCreators(articleActions, dispatch)});
 
 class PublishingApp extends React.Component{
     constructor(props){
         super(props);
+        this.state ={
+            articlesLength:0,
+            articles:[]
+        }
     }
+    componentWillMount(){
+        this._fetch();
+    }
+
+    async _fetch(){
+         this.setState({
+             articlesLength:await falcorModel.getValue('articles.length').then((length) => length ),
+              articles: await falcorModel.get(['articles',{from:0, to: this.state.articlesLength-1}, ['id','articleTitle','articleContent']]).then((articleResponse) => articleResponse.json.articles)
+            });//articlesLength = await falcorModel.getValue('articles.length').then((length) => length );
+        
+         //const articles = await falcorModel.get(['articles',{from:0, to: this.state.articlesLength-1}, ['id','articleTitle','articleContent']]).then((articleResponse) => articleResponse.json.articles);
+        this.props.articleActions.articlesList(this.state.articles);
+    }
+
     render(){
         let articlesJSX = [];
         for(let articleKey in this.props){
