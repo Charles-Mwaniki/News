@@ -1,6 +1,7 @@
 var path = require('path');
 var ROOT = path.resolve(__dirname);
 module.exports = {
+  mode: 'development',
     entry: './src/App.js',
     output: {
         path: path.join(ROOT, './dist'),
@@ -13,13 +14,17 @@ module.exports = {
         port: 3000
       },
     module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: [/node_modules/,/assets/,/public/],
-                loader: "babel-loader",
-                include: __dirname
-              }
-        ]
+      rules: [
+        {
+          test: /\.m?js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          }
+        }
+      ]
     }
 }

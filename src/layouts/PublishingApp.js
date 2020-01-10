@@ -1,6 +1,6 @@
+import '@babel/polyfill';
 import React from 'react';
 import { connect } from 'react-redux';
-import article from '../reducers/Article';
 import falcorModel from '../FalcorModel';
 import { bindActionCreators } from 'redux';
 import articleActions from '../actions/Article';
@@ -13,21 +13,21 @@ class PublishingApp extends React.Component{
         super(props);
         this.state ={
             articlesLength:0,
-            articles:[]
+            articles:null
         }
     }
     componentWillMount(){
         this._fetch();
     }
+    ///sssdsdsdsdds
 
     async _fetch(){
-         this.setState({
-             articlesLength:await falcorModel.getValue('articles.length').then((length) => length ),
-              articles: await falcorModel.get(['articles',{from:0, to: this.state.articlesLength-1}, ['id','articleTitle','articleContent']]).then((articleResponse) => articleResponse.json.articles)
-            });//articlesLength = await falcorModel.getValue('articles.length').then((length) => length );
+            
+       const articlesLength = await falcorModel.getValue('articles.length').then((length) => length );
         
-         //const articles = await falcorModel.get(['articles',{from:0, to: this.state.articlesLength-1}, ['id','articleTitle','articleContent']]).then((articleResponse) => articleResponse.json.articles);
-        this.props.articleActions.articlesList(this.state.articles);
+        const articles = await falcorModel.get(['articles',{from:0, to: articlesLength-1}, ['id','articleTitle','articleContent']]).then((articleResponse) => articleResponse.json.articles);
+        this.props.articleActions.articlesList(articles);
+        console.log("articlesLength "+ articlesLength)
     }
 
     render(){
@@ -43,7 +43,7 @@ class PublishingApp extends React.Component{
             articlesJSX.push(currentArticleJSX);
         }
 
-        console.log(`Props ${this.props}`);
+        //console.log(`Props ${typeof this.state.articles}`);
         return (
             <div>
                 <h1>Our Publishing App</h1>
@@ -53,4 +53,4 @@ class PublishingApp extends React.Component{
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PublishingApp)
+export default connect(mapStateToProps, mapDispatchToProps)(PublishingApp);

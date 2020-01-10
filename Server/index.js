@@ -2,4 +2,5 @@
 //chapter
 require('@babel/core');
 require('@babel/polyfill');
+require('@babel/preset-env')
 require('./Server');
