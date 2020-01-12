@@ -13,7 +13,6 @@ const PublishingAppRoutes = [
       
      }
 },
-
 {
     route: 'articles[{integers}]["id","articleContent"]',
     get: (pathSet) => {

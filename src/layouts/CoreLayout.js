@@ -1,10 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 export default class CoreLayout extends React.Component{
-    static propTypes = {
-        children: React.PropTypes.element
-    }
-
+  
     render(){
         return (
             <div>
@@ -19,4 +17,7 @@ export default class CoreLayout extends React.Component{
         )
     }
 
+}
+CoreLayout.propTypes = {
+    children: PropTypes.element
 }

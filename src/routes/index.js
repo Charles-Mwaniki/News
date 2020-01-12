@@ -2,11 +2,15 @@ import React from 'react';
 import CoreLayout from '../layouts/CoreLayout';
 import PublishingApp from '../layouts/PublishingApp';
 import LoginView from '../views/LoginView';
-import {Route, IndexRoute} from 'react-router';
+import {Route,Switch, BrowserRouter as Router} from 'react-router-dom';
 
 export default (
-    <Route component={CoreLayout} path='/'>
-    <IndexRoute component={PublishingApp} name='home' />
-    <Route component={LoginView} path='login' name='login' />
-    </Route>
+    <Router>
+        <Switch>
+    <Route path="/about"><CoreLayout /></Route>
+    <Route path="/home"><PublishingApp /></Route>
+    <Route path="/login"><LoginView /></Route>
+        </Switch>
+    </Router>
+   
 );
