@@ -1,13 +1,10 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/local');
-const articleSchema = {
-    articleTitle: String,
-    articleContent: String
-};
-const Article = mongoose.model('Article',articleSchema,'articles');
+const configMongoose = require('./ConfigMongoose');
+const sessionRoutes = require('./RouteSession');
+const Article = configMongoose.Article;
 
-
-const PublishingAppRoutes = [{
+const PublishingAppRoutes = [
+    ...sessionRoutes,
+    {
     route: 'articles.length',
     get: () => { 
         return Article.count({}, (err,count) => count ).then((articlesCountInDB) => {

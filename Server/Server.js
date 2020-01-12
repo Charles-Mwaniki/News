@@ -13,22 +13,19 @@ var falcor = require('falcor');
 var falcorExpress = require('falcor-express');
 var falcorRouter = require('falcor-router');
 var routes = require('./Routes');
+const configMongoose = require('./ConfigMongoose');
+const Article = configMongoose.Article;
 //Set up default mongoose connection
 var mongoDB = 'mongodb://127.0.0.1:27017/local';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const articleSchema = {
-    articleTitle: String, articleContent:String
-};
-var schema = new mongoose.Schema(articleSchema);
-const Article = mongoose.model('articles', schema);
-console.log("Articles ", Article)
 const app = express();
 app.server = http.createServer(app);
 app.use(cors());
 app.use(bodyparser.json({extended: false}));
+app.use(bodyparser.urlencoded({extended:false}));
 
 app.use('/model.json',falcorExpress.dataSourceRoute( (req, res) => { return new falcorRouter(routes);}))
 
