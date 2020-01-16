@@ -7,9 +7,9 @@ import {Route,Switch, BrowserRouter as Router} from 'react-router-dom';
 export default (
     <Router>
         <Switch>
-    <Route path="/about"><CoreLayout /></Route>
-    <Route path="/home"><PublishingApp /></Route>
-    <Route path="/login"><LoginView /></Route>
+        <Route path="/about"><CoreLayout /></Route>
+        <Route path="/home"><PublishingApp /></Route>
+        <Route path="/login"><LoginView /></Route>
         </Switch>
     </Router>
    
