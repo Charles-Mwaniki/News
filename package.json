@@ -16,7 +16,7 @@
     "falcor": "^2.1.0",
     "falcor-http-datasource": "^0.1.3",
     "mongodb": "^3.4.0",
-    "next": "^9.1.6",
+    "next": "^11.1.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router": "^5.1.2",
